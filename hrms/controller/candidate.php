@@ -209,4 +209,29 @@ class candidateController
 		$data = loadModel('candidate', 'fetchNewJob',$_SESSION['userInfo']['userId']);
 	}
 	
+	function fetchAllJobs()
+	{
+		$data = loadModel('candidate', 'fetchAllJobs');
+		require_once SITE_ROOT . 'controller/codemaster.php';
+		
+		$codemasterControllerObj = new codemasterController();
+		
+		foreach ($data as $key => $value) {
+			foreach ($value as $innerKey => $innerValue) {
+		
+				if($innerKey == 'designation') {
+					$result = $codemasterControllerObj->getCodeValueById($innerValue);
+		
+					while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+						$designation= $row['code_value'];
+					}
+					$data[$key][$innerKey] = $designation;
+				}
+			}
+		}
+		//loadView('header.php');
+		loadView('career.php',$data);
+		
+	}
+	
 }

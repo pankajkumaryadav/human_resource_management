@@ -28,6 +28,7 @@ class adminModel
 	
 	function fetchJobDetails($jobId = '')
 	{
+		$response = array();
 		if ($jobId != '') {
 			$data = array(
 					'columns'=>array(
@@ -44,15 +45,20 @@ class adminModel
 					),
 					'tables'=>'job_details',
 					
-					'conditions'=>$jobId//array('id'=>"$jobId")
+					'conditions'=>array('id'=>"$jobId",'status' => '0')
 			);
 			
 			$result = $this->db->select($data);
 			if ($result->rowCount() == 0) {
-				echo "No Job found.";
-				die();
+				return -1;
+				
 			} else {
-				return $result;
+				while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+					$response[] = $row;
+				}
+				
+				return $response;
+				
 			}
 		
 		} else {
@@ -73,7 +79,11 @@ class adminModel
 					'conditions'=>array('status'=>'0')
 			);
 			$result = $this->db->select($data);
-			return $result;
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+					$response[] = $row;
+				}
+				
+		return $response;
 			
 		}
 		
@@ -139,6 +149,146 @@ class adminModel
 			return false;
 		}
 	
+	}
+	
+	function updateJob($fields)
+	{
+		$data = array (
+				'no_of_vacancies' => $fields['noOfVacancies'],
+				'criteria_10th' => $fields['highSchoolPercentage'],
+				'criteria_12th' => $fields['secondarySchoolPercentage'],
+				'offered_salary' => $fields['offeredSalary'],
+				'criteria_grad' => $fields['graduationPercentage'],
+				'criteria_post_grad' => $fields['postGraduationPercentage'],
+				'experience' => $fields['experience'],
+				'last_submission_date' => $fields['lastSubmissionDate'],
+				
+		);
+		
+		$where = array('id' => $fields['jobId']);
+		
+		$result = $this->db->update('job_details', $data, $where);
+		
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function deleteJob($fields)
+	{
+		$data = array (
+				'status' => '1',
+			);
+		
+		$where = array('id' => $fields['searchRequest']);
+		
+		$result = $this->db->update('job_details', $data, $where);
+		
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	function searchCandidate($conditionArray)
+	{
+		$response = array();
+// 		if (isset($conditionArray['candidate_id']) && ($conditionArray['candidate_id'] != '')) {
+// 			$data = array(
+// 					'columns'=>array(
+// 							'first_name',
+// 							'middle_name',
+// 							'last_name',
+			
+// 					),
+			
+			
+// 					'tables'=>'candidates',
+// 					'conditions'=>array('id'=>"${conditionArray['candidate_id']}")
+// 					);
+// 			$result = $this->db->select($data);
+// 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+// 				$response[] = $row;
+// 			}	
+// 		}
+// 		if (isset($conditionArray['job_id']) && ($conditionArray['job_id'] != '')) {
+// 			$data = array(
+// 					'columns'=>array(
+// 							'designation',
+														
+// 					),
+						
+						
+// 					'tables'=>'job_details',
+// 					'conditions'=>array('id'=>"${conditionArray['job_id']}")
+// 					);
+// 			$result = $this->db->select($data);
+// 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+// 				$response[] = $row;
+// 			}
+// 		}
+		
+		$data = array(
+				'columns'=>array(
+						'id',
+						'job_id',
+						'candidate_id',
+						'select_status',
+						'submission_date'
+				),
+				
+				'tables'=>'job_candidate',
+				'conditions'=>$conditionArray//array('status'=>'0')
+		);
+		$result = $this->db->select($data);
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$response[] = $row;
+		}
+		
+		//foreach ($response as $key => $value) {
+// 			foreach ($response as $innerKey => $innerValue) {
+// 				if ($innerKey == 'candidate_id') {
+// 					$data = array(
+// 							'columns'=>array(
+// 								'first_name',
+// 								'middle_name',
+// 								'last_name',
+// 						),
+								
+// 						'tables'=>'candidates',
+// 						'conditions'=>array('id'=>"$innerValue")
+// 					);
+// 				$result = $this->db->select($data);
+// 				while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+// 					$response[$key][] = $row;
+// 				}					
+// 				}
+// 			}
+		//}
+		
+		
+		return $response;
+		 
+	}
+	function updateCandidateStatus($fields)
+	{
+		$data = array (
+				'select_status' => $fields['status'],
+			);
+		
+		$where = array('id' => $fields['searchRequest']);
+		
+		$result = $this->db->update('job_candidate', $data, $where);
+		
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}		 
 	}
 }
 ?>

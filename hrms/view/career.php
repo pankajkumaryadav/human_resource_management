@@ -3,7 +3,7 @@ if(!isset($arrData) || empty($arrData)) {
 	echo "No openings yet.";
 	die();	
 }
-if(isset($_SESSION['userInfo']['userId']) && $_SESSION['userInfo']['userId'] != '3') {
+if(isset($_SESSION['userInfo']['userId']) && $_SESSION['userInfo']['userId'] == '3') {
 	$action = "Apply";
 } else {
 	$action = "Register";

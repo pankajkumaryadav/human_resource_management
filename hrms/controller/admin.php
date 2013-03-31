@@ -61,8 +61,34 @@ class adminController
 				loadView('job_post.php',$formData);
 			
 			} else if ($_REQUEST['requestedPage'] == 'SearchCandidate') {
-		
-				loadView('search_candidate.php');
+				
+				$data = loadModel('admin', 'searchCandidate','');
+				
+			require_once SITE_ROOT . 'controller/codemaster.php';
+   		
+   		$codemasterControllerObj = new codemasterController();
+   		
+   		foreach ($data as $key => $value) {
+   			foreach ($value as $innerKey => $innerValue) {
+   		
+   					if($innerKey == 'select_status') {
+   					$result = $codemasterControllerObj->getCodeValueById($innerValue);
+   		
+   					while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   						$status = $row['code_value'];
+   					}
+   					$data[$key][$innerKey] = $status;
+   				}
+   			}
+   		}
+   		
+   		$result = $codemasterControllerObj->getCodeValue('select_status');
+   		 
+   		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   			$data['status'][] = $row['code_value'];
+   		}
+				
+				loadView('search_candidate.php',$data);
 			
 			} else if ($_REQUEST['requestedPage'] == 'accountSettings') {
 		
@@ -70,13 +96,9 @@ class adminController
 			
 			} else if ($_REQUEST['requestedPage'] == 'viewJob') {
 				
-				$result = loadModel('admin', 'fetchJobDetails','');
+				$data = loadModel('admin', 'fetchJobDetails','');
 				
-				while ($row = $result->fetch(PDO::FETCH_ASSOC)) { 
-						 $data[] = $row; 
-                }
-
-                require_once SITE_ROOT . 'controller/codemaster.php';
+				require_once SITE_ROOT . 'controller/codemaster.php';
                 
                 $codemasterControllerObj = new codemasterController();
                 
@@ -95,78 +117,43 @@ class adminController
 	            }
 	           
                 loadView('admin_view_job.php',$data);
-			
-			}
+     		}
 		
 		}
      
    	}
    	
    	function fetchJobDetails()
-   	{	
-   		//loadView('header.php');
-   		if (true) {
-   			$terms = array();
-   			
-   			if (isset($_REQUEST['jobId']) && $_REQUEST['jobId'] != '') {
-   				$terms['id'] = $_REQUEST['jobId'];
-   			}
-   			if (isset($_REQUEST['designation']) && $_REQUEST['designation'] != '') {
-   				$terms['experience'] = $_REQUEST['designation'];
-   			}	
-	   		print_r($terms);
-
-   			$result = loadModel('admin', 'fetchJobDetails',$terms);
-   			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-   				$data[] = $row;
-   			}
+   	{
+   		loadView('header.php');
    		
-   			require_once SITE_ROOT . 'controller/codemaster.php';
-   		
-   			$codemasterControllerObj = new codemasterController();
-   		
-   			foreach ($data as $key => $value) {
-   				foreach ($value as $innerKey => $innerValue) {
-   		
-   					if($innerKey == 'designation') {
-   			   			$result = $codemasterControllerObj->getCodeValueById($innerValue);
-   		
-   			   			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-   			   				$designation= $row['code_value'];
-   			   			}
-   			   			$data[$key][$innerKey] = $designation;
-   					}
-   			   }
-   			}
-   			loadView('admin_search_result.php',$data);
-   		} else {
-   			$jobId = '';
-   			$result = loadModel('admin', 'fetchJobDetails',$jobId = '');
+   		if (isset($_REQUEST['searchRequest'])) {
+   			$jobId = $_REQUEST['searchRequest'];
+   			$data = loadModel('admin', 'fetchJobDetails',$jobId);
+ 			if ($data == -1) {
+ 				echo "No Job Found";
+ 			} else {
+   				require_once SITE_ROOT . 'controller/codemaster.php';
    			
-   			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-   				$data[] = $row;
-   			}
+   				$codemasterControllerObj = new codemasterController();
    			
-   			require_once SITE_ROOT . 'controller/codemaster.php';
+   				foreach ($data as $key => $value) {
+   					foreach ($value as $innerKey => $innerValue) {
    			
-   			$codemasterControllerObj = new codemasterController();
+   						if($innerKey == 'designation') {
+   							$result = $codemasterControllerObj->getCodeValueById($innerValue);
    			
-   			foreach ($data as $key => $value) {
-   				foreach ($value as $innerKey => $innerValue) {
-   			
-   					if($innerKey == 'designation') {
-   						$result = $codemasterControllerObj->getCodeValueById($innerValue);
-   			
-   						while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-   							$designation= $row['code_value'];
-   						}
+   							while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   								$designation= $row['code_value'];
+   							}
    						$data[$key][$innerKey] = $designation;
+   						}
    					}
    				}
-   			}
-   			//loadView('header.php');
-   			loadView('career.php',$data);
-   		}
+   				loadView('admin_search_result.php',$data);
+ 			}
+   		
+   		} 
 	}
    	
 
@@ -209,5 +196,127 @@ class adminController
    		//echo "in change password controller";
    	}
    	
+   	function editJob()
+   	{
+   		loadView('header.php');
+   	if (isset($_REQUEST['searchRequest'])) {
+   			$jobId = $_REQUEST['searchRequest'];
+   			$data = loadModel('admin', 'fetchJobDetails',$jobId);
+ 			if ($data == -1) {
+ 				echo "No Job Found";
+ 			} else {
+   				require_once SITE_ROOT . 'controller/codemaster.php';
+   			
+   				$codemasterControllerObj = new codemasterController();
+   			
+   				foreach ($data as $key => $value) {
+   					foreach ($value as $innerKey => $innerValue) {
+   			
+   						if($innerKey == 'designation') {
+   							$result = $codemasterControllerObj->getCodeValueById($innerValue);
+   			
+   							while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   								$designation= $row['code_value'];
+   							}
+   						$data[$key][$innerKey] = $designation;
+   						}
+   					}
+   				}
+   				loadView('admin_edit_job.php',$data);
+ 			}
+   		} 
+   		
+   	}
+   	
+   	function updateJob()
+   	{
+   		loadView('header.php');
+   		$result = loadModel('admin', 'updateJob',$_REQUEST);
+   		if ($result) {
+   			echo "update successfully.";
+   		} else {
+   			echo "Something went wrong. Try again...";
+   		}
+   	}
+   	
+   	function deleteJob()
+   	{
+   		loadView('header.php');
+   		$result = loadModel('admin', 'DeleteJob',$_REQUEST);
+   		if ($result) {
+   			echo "Delete successfully.";
+   		} else {
+   			echo "Something went wrong. Try again...";
+   		}
+   	}
+   	
+   	function searchCandidate()
+   	{
+   		loadView('header.php');
+   		//print_r($_REQUEST);
+   		$conditionArray = array();
+   		if (isset($_REQUEST['jobId']) && ($_REQUEST['jobId'] != '')) {
+   			$conditionArray['job_id'] =  $_REQUEST['jobId'];
+   		}
+   		
+   		if (isset($_REQUEST['candidateId']) && ($_REQUEST['candidateId'] != '')) {
+   			$conditionArray['candidate_id'] =  $_REQUEST['candidateId'];
+   		}
+   		
+   		$data = loadModel('admin', 'searchCandidate',$conditionArray);
+   		require_once SITE_ROOT . 'controller/codemaster.php';
+   		
+   		$codemasterControllerObj = new codemasterController();
+   		
+   		foreach ($data as $key => $value) {
+   			foreach ($value as $innerKey => $innerValue) {
+   		
+   					if($innerKey == 'select_status') {
+   					$result = $codemasterControllerObj->getCodeValueById($innerValue);
+   		
+   					while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   						$status = $row['code_value'];
+   					}
+   					$data[$key][$innerKey] = $status;
+   				}
+   			}
+   		}
+   		
+   		$result = $codemasterControllerObj->getCodeValue('select_status');
+   		 
+   		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   			$data['status'][] = $row['code_value'];
+   		}
+//    		print_r($data);
+//    		die();
+   		loadView('candidate_search_result.php',$data);
+   	}
+   	
+   	function updateCandidateStatus()
+   	{
+   		//print_r($_REQUEST);
+   		require_once SITE_ROOT . 'controller/codemaster.php';
+   		 
+   		$codemasterControllerObj = new codemasterController();
+   		 
+   		$result = $codemasterControllerObj->getCodeId($_REQUEST['status']);
+   					 
+   		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   			$_REQUEST['status'] = $row['id'];
+   		}
+//    		print_r($_REQUEST);
+//    		die();
+   		$result = loadModel('admin', 'updateCandidateStatus',$_REQUEST);
+   		
+   		if ($result) {
+   			echo "Record updated successfully";
+   		} else {
+   			echo "Something went wrong. Try again...";
+   		}
+   		 
+   		
+   	
+   	
+	}
 }
 ?>

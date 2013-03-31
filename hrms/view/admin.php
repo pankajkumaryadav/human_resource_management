@@ -28,7 +28,7 @@
                   
                     $.ajax({
                 		type: "POST",
-                		url: "<?php echo SITE_PATH?>index.php?controller=admin&function=fetchJobDetails",
+                		url: "<?php echo SITE_PATH?>index.php?controller=candidate&function=fetchAllJobs",
                 		data: '',
                 	     success: function(response){
                   

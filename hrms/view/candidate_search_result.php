@@ -6,27 +6,14 @@
  * Date_of_creation : 31-March-2013
  */
 if(!isset($arrData) || empty($arrData)) {
-	echo "No Job is posted.";
+	echo "No candidate found.";
 	die();
 }
 ?>
 <html>
 <head>
 
-		<style type="text/css" title="currentStyle">
-            
-            @import "media/css/demo_table.css";
-            
-        </style>
-        <link rel="stylesheet" type="text/css" href="layout.css" />
-        <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
-
-        <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                $('#shubh').dataTable();
-            } );
-        </script>
+	
 <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH;?>paging.css" />
 <script type="text/javascript" src="<?php echo JS_PATH;?>jquery/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH;?>paging.js"></script>
@@ -38,22 +25,28 @@ if(!isset($arrData) || empty($arrData)) {
     <ul id="holder">
                                         <?php 
 										
-										foreach($arrData as $value){ ?>
+										foreach($arrData as $value){ 
+											//print_r($value);
+											?>
 										                          
-								        
-					<li> Job Id : <?php echo $value['id']; ?><br/>
-					Designation : <?php echo $value['designation']; ?><br/>
-					No. of Vacancies: <?php echo $value['no_of_vacancies']; ?><br/>
-					High School : <?php echo $value['criteria_10th']; ?><br/>
-					Senior Secondary : <?php echo $value['criteria_12th']; ?><br/>
-					Graduation : <?php echo $value['criteria_grad']; ?><br/>
-					Post Graduation : <?php echo $value['criteria_post_grad']; ?><br/>
-					Experience : <?php echo $value['experience']; ?><br/>
-					Offered Salary : <?php echo $value['offered_salary']; ?><br/>
-					Last Submission Date : <?php echo $value['last_submission_date']; ?><br/>
-					<a href = "#" name = "<?php echo $value['id']; ?>" onclick = "editJob(this.name)">Edit</a>
-					<a href = "#" name = "<?php echo $value['id']; ?>" onclick = "deleteJob(this.name)">   Delete</a></li></li>
-					
+						
+					<li>
+					Job Id : <?php echo $value['job_id']; ?><br/>
+					Candidate Id: <?php echo $value['candidate_id']; ?><br/>
+					Select Status : <select id = "select_status" name = "select_status">
+            						<?php
+										for ($i = 0; $i < count($arrData['status']); $i++) {
+											if ($arrData['status'][$i] == $value['select_status']) {
+												echo "<option value=" . $arrData['status'][$i]. " selected = " . "selected" . ">". $arrData['status'][$i] ."</option>";
+											} else {          		           				    		
+            									echo "<option value=" . $arrData['status'][$i]. ">". $arrData['status'][$i] ."</option>";
+											}
+            							}
+            		           				
+            						?>
+            					</select><br/>
+					Submission Date : <?php echo $value['submission_date']; ?><br/>
+					<a href = "#" name = "<?php echo $value['id']; ?>" onclick = "changeStatus(this.name)">Change Status</a></li>
 
 				
 										<?php 

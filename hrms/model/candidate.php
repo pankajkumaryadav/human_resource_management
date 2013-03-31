@@ -235,6 +235,36 @@ class candidateModel
 		return $response; 
 		
 	}
+	
+	function fetchAllJobs()
+	{
+		$response = array();
+		$data = array(
+				'columns'=>array(
+						'id',
+						'designation',
+						'no_of_vacancies',
+						'criteria_10th',
+						'criteria_12th',
+						'criteria_grad',
+						'criteria_post_grad',
+						'offered_salary',
+						'experience',
+						'last_submission_date'
+				),
+				'tables'=>'job_details',
+				'conditions'=>array('status'=>'0')
+		);
+		$result = $this->db->select($data);
+		$result = $this->db->select($data);
+		
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$response[] = $row;
+		}
+		
+		return $response;
+		
+	}
 }
 	
 ?>
