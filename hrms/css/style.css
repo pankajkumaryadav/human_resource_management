@@ -1,0 +1,35 @@
+html, body, div, h1{margin: 0;padding: 0;border: 0;}
+body {font-family: Arial, "Trebuchet MS";font-size: 12px;color: #99A607; }
+a{font-weight: bold;letter-spacing: -1px;color: #99A607;text-decoration:none;}
+a:hover{color: #99A607;text-decoration:underline;}
+.clear{clear:both;}
+#container{width:70%;margin: auto;}
+#top{width:100%;margin-top: 25px; height:60px; border:1px solid #BBBBBB; padding:10px;}
+
+#top #logo{width:60%; float:left;}
+#top #main_tutorial_link{width:39%; float:left;}
+
+
+#tutorialHead{width:100%;margin-top: 25px; height:30px; border:1px solid #BBBBBB; padding:10px;}
+.tutorialTitle{width:800px;float:left;}
+.tutorialLink{float:right;}
+#wrapper{width:98%;margin-top: 25px; border:1px solid #BBBBBB; padding:20px; min-height:340px;}
+
+#product_listing{width:100%; padding:5px;}
+#product_listing .product_box{width:32%; margin-right:10px; height:120px; float:left; margin-bottom:55px;}
+
+#product_listing .product_box .product_image{width:65%; float:left;}
+#product_listing .product_box .product_detail{width:33%; float:left; margin-left:5px;}
+
+#product_listing .product_box .product_detail .product_title{color:#222222;}
+#product_listing .product_box .product_desc{color:#222222;}
+
+#product_listing .product_box .extra{width:100%; margin-top:10px;}
+#product_listing .product_box .more{float:right;width:10%; float:left;}
+#product_listing .product_box .tutorial_link{width:85%; float:left;}
+
+#product_detail_box{color:#222222; margin-top:20px;}
+#product_detail_box .product_detail_tutorial_link{width:20%; float:left;}
+#product_detail_box .product_detail_title{width:80%; float:left;}
+
+#fotter{clear:both;text-align:right;font-size:10px;color: #222; border:1px solid #BBBBBB; padding:10px;width:100%;margin-top: 25px;}
