@@ -132,7 +132,7 @@ class candidateModel
 					'type'	=> '',
 					'conditions' => array('job_candidate.job_id' => 'job_details.id'));
 			$data['conditions'] = array('job_candidate.candidate_id'=> $candidateId);
-						
+				
 			$result = $this->db->select($data);
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$response[] = $row;

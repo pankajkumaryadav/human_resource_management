@@ -4,7 +4,7 @@
     define('SITE_PATH','http://'.$_SERVER['HTTP_HOST'].'/human_resource_management/trunk/hrms/');
     define('IMAGE_PATH',SITE_PATH.'images/');
     define('CSS_PATH',SITE_PATH.'css/');
-    define('JS_PATH',SITE_PATH.'js/');
+    define('JS_PATH',SITE_PATH.'jscript/');
     define('LIBRARY_ROOT',SITE_ROOT.'library/');
     define('VIEW_PATH',SITE_ROOT.'view/');
     define('MODEL_PATH',SITE_ROOT.'model/');

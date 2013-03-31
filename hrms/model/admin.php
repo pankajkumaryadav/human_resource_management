@@ -44,8 +44,9 @@ class adminModel
 					),
 					'tables'=>'job_details',
 					
-					'conditions'=>array('id'=>"$jobId")
+					'conditions'=>$jobId//array('id'=>"$jobId")
 			);
+			
 			$result = $this->db->select($data);
 			if ($result->rowCount() == 0) {
 				echo "No Job found.";

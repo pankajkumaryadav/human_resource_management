@@ -70,7 +70,7 @@ class adminController
 			
 			} else if ($_REQUEST['requestedPage'] == 'viewJob') {
 				
-				$result = loadModel('admin', 'fetchJobDetails',$jobId = '');
+				$result = loadModel('admin', 'fetchJobDetails','');
 				
 				while ($row = $result->fetch(PDO::FETCH_ASSOC)) { 
 						 $data[] = $row; 
@@ -103,32 +103,42 @@ class adminController
    	}
    	
    	function fetchJobDetails()
-   	{	loadView('header.php');
-   		if (isset($_REQUEST['searchRequest'])) {
-   			$jobId = $_REQUEST['searchRequest'];
-   			$result = loadModel('admin', 'fetchJobDetails',$jobId);
+   	{	
+   		//loadView('header.php');
+   		if (true) {
+   			$terms = array();
+   			
+   			if (isset($_REQUEST['jobId']) && $_REQUEST['jobId'] != '') {
+   				$terms['id'] = $_REQUEST['jobId'];
+   			}
+   			if (isset($_REQUEST['designation']) && $_REQUEST['designation'] != '') {
+   				$terms['experience'] = $_REQUEST['designation'];
+   			}	
+	   		print_r($terms);
+
+   			$result = loadModel('admin', 'fetchJobDetails',$terms);
    			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
    				$data[] = $row;
    			}
-   			
+   		
    			require_once SITE_ROOT . 'controller/codemaster.php';
-   			
+   		
    			$codemasterControllerObj = new codemasterController();
-   			
+   		
    			foreach ($data as $key => $value) {
    				foreach ($value as $innerKey => $innerValue) {
-   			
+   		
    					if($innerKey == 'designation') {
-   						$result = $codemasterControllerObj->getCodeValueById($innerValue);
-   			
-   						while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-   							$designation= $row['code_value'];
-   						}
-   						$data[$key][$innerKey] = $designation;
+   			   			$result = $codemasterControllerObj->getCodeValueById($innerValue);
+   		
+   			   			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+   			   				$designation= $row['code_value'];
+   			   			}
+   			   			$data[$key][$innerKey] = $designation;
    					}
-   				}
+   			   }
    			}
-   			loadView('admin_view_job.php',$data);
+   			loadView('admin_search_result.php',$data);
    		} else {
    			$jobId = '';
    			$result = loadModel('admin', 'fetchJobDetails',$jobId = '');
@@ -154,12 +164,12 @@ class adminController
    					}
    				}
    			}
-   			
+   			//loadView('header.php');
    			loadView('career.php',$data);
    		}
-   		
-   	 	}
+	}
    	
+
    	
    	function postJob()
    	{	loadView('header.php');

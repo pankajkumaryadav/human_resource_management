@@ -46,19 +46,10 @@ class loginModel
 		
 		$data = array('columns'=>array('id','user_type'),'tables'=>'users','conditions'=>array('email_id'=>"$loginInput[0]",'password'=>"$loginInput[1]",'status'=>'0'));
 		$result = $this->db->select($data);
-		//print_r($loginInput);
-		//echo "sdjfljdslfjkldsj";
-		//$row = $result->fetch(PDO::FETCH_ASSOC);
-		//print_r($row);
-		//echo "<br/>*******";
-		//echo $result->rowCount();
-		//die("jldsjfl");
-		////if($result->rowCount() == 0){
-		//	return -1;			
-		//}
+		if($result->rowCount() == 0) {
+			return -1;			
+		}
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		//echo "<br>";
-//echo $row->rowCount();
 		$_SESSION['userInfo']['userType'] = $row['user_type'];
 			
 		if (($row['user_type'] == '2') || ($row['user_type'] == '1')) {

@@ -14,72 +14,21 @@ if(!isset($arrData) || empty($arrData)) {
 ?>
 <html>
 <head>
-
-		<style type="text/css" title="currentStyle">
-            
-            @import "media/css/demo_table.css";
-            
-        </style>
-        <link rel="stylesheet" type="text/css" href="layout.css" />
-        <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
-
-        <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                $('#shubh').dataTable();
-            } );
-        </script>
-
 </head>
-
 <body>
+<form id = "searchForm">
+<table>
+	<tr>
+		<td>Enter job Id :</td>
+		<td><input type = "text" id = "jobId" name = "jobId" onkeyup = "search(this.value)" /></td>
+		<td>designation :</td>
+		<td><input type = "text" id = "designation" name = "designation" onkeyup = "search(this.value)" /></td>
+	</tr>
+</table>
+</form>
 	
 	<div id="searchResult">
-		<table width="100%" border="1" cellpadding="0" cellspacing="0"
-			id="shubh" class="display">
-			<thead>
-				<tr>
-
-
-					<td align="center">Job Id</td>
-					<td align="center">Designation</td>
-					<td align="center">No. of Vacancies</td>
-					<td align="center">High School</td>
-					<td align="center">Senior Secondary</td>
-					<td align="center">Graduation</td>
-					<td align="center">Post Graduation</td>
-					<td align="center">Experience</td>
-					<td align="center">Offered Salary</td>
-					<td align="center">Last Submission Date</td>
-
-				</tr>
-
-			</thead>
-			<tbody>
-                                        <?php 
-										
-										foreach($arrData as $value){ ?>
-										                          
-								        <tr>
-					<td align="right"><a href =" #"><?php echo $value['id']; ?></a></td>
-					<td><?php echo $value['designation']; ?></td>
-					<td align="right"><?php echo $value['no_of_vacancies']; ?></td>
-					<td align="right"><?php echo $value['criteria_10th']; ?></td>
-					<td align="right"><?php echo $value['criteria_12th']; ?></td>
-					<td align="right"><?php echo $value['criteria_grad']; ?></td>
-					<td align="right"><?php echo $value['criteria_post_grad']; ?></td>
-					<td align="right"><?php echo $value['experience']; ?></td>
-					<td align="right"><?php echo $value['offered_salary']; ?></td>
-					<td><?php echo $value['last_submission_date']; ?></td>
-
-				</tr>
-										<?php 
-										} ?>
-										
-										</tbody>
-		</table>
 	</div>
-
 </body>
 </html>
 <script>
@@ -89,7 +38,7 @@ if(!isset($arrData) || empty($arrData)) {
                        $.ajax({
 					type: "POST",
 					url: "<?php echo SITE_PATH?>index.php?controller=admin&function=fetchJobDetails",
-					data: "searchRequest="+searchInput,
+					data: $("#searchForm").serialize(),
 				     success: function(response){
 					                  // redirect("../../../../index.php");
                                        //alert(response);
