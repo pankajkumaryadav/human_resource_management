@@ -81,12 +81,11 @@ class loginModel
 		if ($result->rowCount() == 1) {
 			echo "Email already in use <br/>";
 		} else {
-			echo "Welcome <br/>";
+			//echo "Welcome <br/>";
 			
 			$data[] = array(
 					'email_id' => $fields['email_id'],
 					'password' => $fields['password'],
-			
 				);
 			
 			foreach ($data as $row) {
@@ -94,7 +93,7 @@ class loginModel
 			}
 			
 			if ($result) {
-				echo "Check ur mail for authentication.<br/>";
+				echo "Welcome...<br/>Login to proceed...<br/>";
 			} else {
 				echo "Something went wrong try again...<br/>";
 			}
