@@ -24,11 +24,11 @@
 
 
 <!-- CHANGE TEXT LINK -->
-	<a href="#" onclick="changeCaptcha()" id="change-image">Not readable? Change text.</a><br/><br/>
-							</td>
+	<a href="#" onclick="changeCaptcha()" id="change-image">Not readable? Change text.</a>
+	</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td>Enter Text</td>
 							<td><input type="text" name="captcha" id="captcha-form" autocomplete="off" /></td>
 						</tr>
 						<tr>
