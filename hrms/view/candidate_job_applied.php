@@ -21,61 +21,36 @@ if(!isset($arrData) || empty($arrData)) {
         
 //require_once('../../../languages/lang.en.php');
 ?>
-<h1> <?php echo "Job Applied"; //echo $_SESSION['authuser']; ?></h1>
+<?php echo "Job Applied"; //echo $_SESSION['authuser']; ?>
 <html>
 	<head>
-	<style type="text/css" title="currentStyle">
-            
-            @import "media/css/demo_table.css";
-            
-        </style>
-        <link rel="stylesheet" type="text/css" href="layout.css" />
-        <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
-
-        <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                $('#shubh').dataTable();
-            } );
-        </script>
+<link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH;?>paging.css" />
+<script type="text/javascript" src="<?php echo JS_PATH;?>jquery/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH;?>paging.js"></script>
 	</head>
 	
 	<body>
-		
-		<table width="100%" border="1" cellpadding="0" cellspacing="0" id="shubh" class="display" >
-<thead>
-  <tr>
-					
-                                           
-                                        <td align="center">JOb Id</td>
-										<td align="center">Designation</td>
-										<td align="center">Offered Salary</td>
-										<td align="center">Result</td>
-										<td align="center">Submission Date</td>
-                                        <td align="center">Last Submission Date</td>
-                                        
-                                        </tr>
-										 
-  										</thead>
-  										<tbody>
+			<div id="main">
+    <ul id="holder">
                                         <?php 
 										
 										foreach($arrData as $value){ ?>
 										                          
-								        <tr>
-                                        <td align="right"><?php echo $value['job_id']; ?></td>
-										<td><?php echo $value['designation']; ?></td>
-										<td align="right"><?php echo $value['offered_salary']; ?></td>
-									    <td><?php echo $value['select_status']; ?></td>
-                                        <td><?php echo $value['submission_date']; ?></td>
-									    <td><?php echo $value['last_submission_date']; ?></td>
-									    
-                                        </tr>
+								    <li>Job Id : <?php echo $value['job_id']; ?><br/>
+										Designation : <?php echo $value['designation']; ?><br/>
+										Offered Salary : <?php echo $value['offered_salary']; ?><br/>
+									    Result : <?php echo $value['select_status']; ?><br/>
+                                        Submission Date : <?php echo $value['submission_date']; ?><br/>
+									    Last Submission Date : <?php echo $value['last_submission_date']; ?></li>
+					
+
+				
 										<?php 
 										} ?>
 										
-										</tbody>
-										</table>
+				</ui>
+	</div>
+
 			 
 	</body>
 </html>
