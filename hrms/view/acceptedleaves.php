@@ -1,4 +1,11 @@
 <?php
+/**
+* Filename : acceptedleaves.php
+* Authour : Megha Sahni
+* Description : Display accepted leaves.
+* Date_of_creation : 10-March-2013
+*/
+
 ini_set("display_errors","1"); 
 ?><html>
 	
@@ -28,6 +35,9 @@ ini_set("display_errors","1");
 				<div id="header_content">
 				<div id="site_title">
 					<a href="http://www.templatemo.com" target="_parent"><img src="images/title6.png" alt="LOGO" /></a>            
+			       <a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
+				<a href="<?php echo SITE_PATH?>index.php?controller=employee&function=myProfile" class="detail float_r"><?php echo HOME; ?></a>
+				
 				</div>
 				
 				

@@ -96,14 +96,46 @@ class cxpdo extends PDO {
 		. ' FROM '. $this->table_list($data['tables'])
 		. (!empty($data['joins']) ? $this->join($data['joins']) : '')
 		. (!empty($data['conditions']) ? $this->where_list($data['conditions']) : '')
+                . (!empty($data['conditionslike']) ? $this->where_listlike($data['conditionslike']) : '')
+			. (!empty($data['conditionsbetween']) ? $this->where_between($data['conditionsbetween']) : '')
 		. (!empty($data['group']) ? $this->group_by($data['group']) : '')
 		. (!empty($data['order']) ? $this->order_by($data['order']) : '')
 		. (!empty($data['limit']) ? $this->limit($data['limit'], (!empty($data['offset']) ? $data['offset'] : '')) : '');
-
+//echo $query;
 		//Return the results -or a query string?
 		return $return ? $this->query($query) : $query;
 	}
 
+        function where_between($conditions=array()) {
+
+		$output = '  '.$conditions;
+		/*foreach((array) $conditions as $column => $value) {
+			//If the value is an aray it must be an IN clause
+			if(is_array($value)) {
+				$output .= $this->quoteIdentifier($column). $this->in_list($value);
+			} else {
+				$output .= $this->quoteIdentifier($column). ' = '
+				. ($value == '?' ? $value : $this->quote($value)). ' AND ';
+			}
+		}*/
+		return rtrim($output);
+	}
+
+        function where_listlike($conditions=array()) {
+
+		$output = ' WHERE '.$conditions;
+		/*foreach((array) $conditions as $column => $value) {
+			//If the value is an aray it must be an IN clause
+			if(is_array($value)) {
+				$output .= $this->quoteIdentifier($column). $this->in_list($value);
+			} else {
+				$output .= $this->quoteIdentifier($column). ' = '
+				. ($value == '?' ? $value : $this->quote($value)). ' AND ';
+			}
+		}*/
+		return rtrim($output);
+	}
+        
 
 	/**
 	 * Creates a full delete query. Be careful when using this

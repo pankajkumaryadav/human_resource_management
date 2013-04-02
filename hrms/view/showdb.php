@@ -1,4 +1,12 @@
 <?php
+/**
+* Filename : showdb.php
+* Authour : Megha Sahni
+* Description : Display the database of employees .
+* Date_of_creation : 14-March-2013
+*/
+
+    
 	require_once('../../../languages/lang.en.php');
         include("cls_dbintereaction.inc.php");
 ?>
@@ -39,7 +47,9 @@
 				<div id="site_title">
 					<a href="http://www.templatemo.com" target="_parent"><img src="../../../assets/images/title6.png" alt="LOGO" /></a>            
 				</div>
-				
+	<a href="<?php echo SITE_PATH?>index.php?controller=login&function=loginPage" class="detail float_l"><?php echo HOME; ?></a>
+			<a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
+						
 				
 			</div>
 		</div> <!-- end of header -->
@@ -67,7 +77,7 @@
 					<table style="background-color:silver;float:center;border: black solid 2px;">
                    
                                                     <tr>
-                                             <th>S.No.</th>
+                                             <th>ID</th>
                                              <th>Name</th>
                                               <th>Address</th>
                                          <th>Contact</th>

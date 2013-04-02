@@ -1,9 +1,9 @@
 <?php
 /**
-* Filename : grievanceView.php
-* Authour : Jasleen kaur
-* Description : first page of application.
-* Date_of_creation : 10-March-2013
+* Filename : employeesearchResult.php
+* Authour : Megha Sahni
+* Description : search teh employee database on basis of id or name .
+* Date_of_creation : 11-March-2013
 */
 	ini_set("display_errors","1");
 	
@@ -22,8 +22,9 @@
         	<div id="site_title">
 			<a href="#" target="_parent"><img src="images/title6.png" alt="LOGO" /></a>            </div>
             <a href="<?php echo SITE_PATH?>index.php?controller=login&function=loginPage" class="detail float_l"><?php echo HOME; ?></a>
-
-			<a href="#" class="detail float_l"><?php echo LOG_OUT ;?></a>
+             <a href="<?php echo SITE_PATH?>index.php?controller=login&function=loginPage" class="detail float_l"><?php echo HOME; ?></a>
+			 <a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
+			
 			
 		 <!-- <a href="#" class="detail float_r">Payroll</a>-->
 		  

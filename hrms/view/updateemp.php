@@ -1,8 +1,11 @@
 <?php
+/**
+* Filename : updateemp.php
+* Authour : Megha Sahni
+* Description : Display the employee details in a form and allow admin to update the details.
+* Date_of_creation : 10-March-2013
+*/
 
-//echo 'oye<pre>';
-//print_r($arrData);
-//die;
 	ini_set("display_errors","1");
 	
 ?>
@@ -10,29 +13,32 @@
 
 <body>
 
+<link rel="stylesheet" href="css/jquery-ui.css" />
+
+    <script language="javascript" type="text/javascript" src="jscript/jquery/jquery.js"></script>
+<script src="jscript/jquery/jquery-ui.js"></script>
+
+
 <div id="templatemo_body_wrapper">
-<div id="templatemo_wrapper">
+            <div id="templatemo_wrapper">
+                <div id="tempaltemo_header">
+                    <span id="header_icon"></span>
+                    <div id="header_content">
+                        <div id="site_title">
+                            <a href="http://www.templatemo.com" target="_parent"><img src="images/title6.png" alt="LOGO" /></a>            
+                        </div>
+<a href="<?php echo SITE_PATH?>index.php?controller=login&function=loginPage" class="detail float_l"><?php echo HOME; ?></a>
+			<a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
 
-	<div id="tempaltemo_header">
-	
-    	 <span id="complaint_icon"></span> 
-    	<div id="header_content">
-        	<div id="site_title">
-			<a href="#" target="_parent"><img src="images/title6.png" alt="LOGO" /></a>            </div>
-            <a href="<?php echo SITE_PATH?>index.php?controller=login&function=loginPage" class="detail float_l"><?php echo HOME; ?></a>
 
-			<a href="#" class="detail float_l"><?php echo LOG_OUT ;?></a>
-			
-		 <!-- <a href="#" class="detail float_r">Payroll</a>-->
-		  
-		</div>
-    </div> <!-- end of header -->
-    
-    <div id="templatemo_main_top"></div>
-		<div id="templatemo_main"><!--<span id="main_top"></span><span id="main_bottom"></span>-->
-			<div id="templatemo_sidebar">
-               	<div id="templatemo_menu">
-					<ul>
+                    </div>
+                </div> <!-- end of header -->
+
+                <div id="templatemo_main_top"></div>
+                <div id="templatemo_main"><!--<span id="main_top"></span><span id="main_bottom"></span>-->
+                    <div id="templatemo_sidebar">
+                        <div id="templatemo_menu">
+        					<ul>
 					<li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=myProfile"  ><?php echo"View Profile :" ?> </a></li>
 						<li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=searchAppiledLeaves"  > <?php echo"View Applied Leaves :" ?> </a></li>
 						<li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=searchAcceptedLeaves"  > <?php echo"View Accepted Leaves :" ?> </a></li>
@@ -40,6 +46,7 @@
  							 <li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=listing"  ><?php echo"Show Database :" ?> </a></li>
 
 						<li><a href="<?php echo SITE_PATH?>index.php?controller=employee&function=addEmployee"><?php echo "Add Employee" ?></a></li></a></li>
+                      <li><a href="<?php echo SITE_PATH; ?>index.php?controller=login&function=logout" target="_parent"><?php echo LOG_OUT; ?></a></li>			
 
 						
 					</ul>    	
@@ -190,7 +197,7 @@
                 </td>
 	</tr>
 	<tr>
-		<td><input type="button" name="btnSave" id="btnSave" value="Save" onclick="fncSave()"/></td>
+		<td align="center" colspan="2"><input type="button" name="btnSave" id="btnSave" value="Save" onclick="fncSave()"/></td>
 	</tr>
 </tbody>
 </table>              
@@ -215,6 +222,45 @@
 </div>
 
 
+<script>
+$(function() {
+	$( "#dob" ).datepicker({
+	changeMonth: true,
+	changeYear: true
+	});
+});
+$(function() {
+	$( "#hire_date" ).datepicker({
+	changeMonth: true,
+	changeYear: true
+	});
+});
+$(function() {
+	$( "#termination_date" ).datepicker({
+	changeMonth: true,
+	changeYear: true
+	});
+});
+$("#dob").datepicker({
+    changeYear: true,
+    dateFormat: 'dd/mm/yy',
+    minDate: new Date('1960/01/01'),
+    maxDate: new Date('1995/01/01')
+});
+$("#hire_date").datepicker({
+    changeYear: true,
+    dateFormat: 'dd/mm/yy',
+    minDate: new Date('1960/01/01'),
+    maxDate: '-1d'
+});
+$("#termination_date").datepicker({
+    changeYear: true,
+    dateFormat: 'dd/mm/yy',
+    minDate: new Date('1960/01/01'),
+    maxDate: '-1d'
+});
+
+</script>
 
 </body>
 </html>

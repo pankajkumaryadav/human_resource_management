@@ -1,4 +1,11 @@
 <?php
+/**
+* Filename : deleteemp.php
+* Authour : Megha Sahni
+* Description : Delete employee from database.
+* Date_of_creation : 10-March-2013
+*/
+
 	require_once('../../../languages/lang.en.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -33,9 +40,10 @@
 				<span id="header_icon"></span>
 				<div id="header_content">
 				<div id="site_title">
-					<a href="http://www.templatemo.com" target="_parent"><img src="../../../assets/images/title6.png" alt="LOGO" /></a>            
-				</div>
-				
+					<a href="http://www.templatemo.com" target="_parent"><img src="../../../assets/images/title6.png" alt="LOGO" /></a>   
+					</div>
+				<a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
+				<a href="<?php echo SITE_PATH?>index.php?controller=employee&function=myProfile" class="detail float_r"><?php echo HOME; ?></a>
 				
 			</div>
 		</div> <!-- end of header -->

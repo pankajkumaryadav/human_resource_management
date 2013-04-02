@@ -1,17 +1,12 @@
 <?php
-
-session_start();
-session_destroy();
-
-$_SESSION['userInfo']['userId'] = "2";
-$_SESSION['userInfo']['user_type'] = "2";
-
-
-//echo '<pre>';
-//print_r($_SESSION);
+/**
+* Filename : employee.php
+* Authour : Megha Sahni
+* Description : controller for leave menagement,employee database management and employee leaves apply .
+* Date_of_creation : 15-March-2013
+*/
 
 ini_set("display_errors", "1");
-
 class employeeController {
 
     function __construct() {
@@ -25,9 +20,9 @@ class employeeController {
 
     public function deleteEmp() {
         $nUserId = $_POST["userId"];
-		$arr = array();
-		$arr["emp_id"] = $_POST["empId"];
-		$arr["user_id"] = $_POST["userId"];
+        $arr = array();
+        $arr["emp_id"] = $_POST["empId"];
+        $arr["user_id"] = $_POST["userId"];
         $arrValue = loadModel('employee', 'empDelete', $arr);
     }
 
@@ -61,7 +56,6 @@ class employeeController {
         //loadView('footer.php');
     }
 
-   
     public function addEmployee() {
         loadView('header.php');
         loadView('add_emp.php');
@@ -70,8 +64,8 @@ class employeeController {
     public function addEmployee1() {
         //echo "vsahdha";
         loadView('header.php');
-       // echo '<pre>';
-       //  print_r($_POST);die;
+        // echo '<pre>';
+        //  print_r($_POST);die;
         $first_name = $_POST['first_name'];
 
         $data[] = array(
@@ -101,11 +95,11 @@ class employeeController {
             'designation' => $_POST['designation'],
             'email_id' => $_POST['email_id']
         );
-       // echo '<pre>';
-         //print_r($data);
+        // echo '<pre>';
+        //print_r($data);
         //die;
         $arrValue1 = loadModel('employee', 'fncSaveData', $data);
-		header("Location: ".SITE_PATH."index.php?controller=employee&function=listing");
+        header("Location: " . SITE_PATH . "index.php?controller=employee&function=listing");
     }
 
     public function fncConvertDate($argDate="") {
@@ -140,29 +134,29 @@ class employeeController {
             'id' => $_POST['id'],
             'first_name' => $_POST['first_name'],
             'middle_name' => $_POST['middle_name'],
-                 'dob' => $this->fncConvertDate($_POST['dob']),
-                  'department_id' => $_POST['department_id'],
-                  'last_name' => $_POST['last_name'],
-                  'permanent_address' => $_POST['permanent_address'],
-                  'permanent_city' => $_POST['permanent_city'],
-                  'permanent_state'=> $_POST['permanent_state'],
-                  'permanent_pin' => $_POST['permanent_pin'],
-                  'temporary_address'=> $_POST['temporary_address'],
-                  'temporary_city' => $_POST['temporary_city'],
-                  'temporary_state' => $_POST['temporary_state'],
-                  'temporary_pin' => $_POST['temporary_pin'],
-                  'gender' => $_POST['gender'],
-                  'mobile_number' => $_POST['mobile_number'],
-                  'emergency_number'=> $_POST['emergency_number'],
-                  'marital_status' => $_POST['marital_status'],
-                  'recent_qualification' => $_POST['recent_qualification'],
-                  'salary' => $_POST['salary'],
-                  'department_id' => $_POST['department_id'],
-                  'hire_date' => $this->fncConvertDate($_POST['hire_date']),
-                  'termination_date' => $this->fncConvertDate($_POST['termination_date']),
-                  'account_number' => $_POST['account_number'],
-                  'user_id' => $_POST['user_id'],
-                  'designation'=> $_POST['designation'] 
+            'dob' => $this->fncConvertDate($_POST['dob']),
+            'department_id' => $_POST['department_id'],
+            'last_name' => $_POST['last_name'],
+            'permanent_address' => $_POST['permanent_address'],
+            'permanent_city' => $_POST['permanent_city'],
+            'permanent_state' => $_POST['permanent_state'],
+            'permanent_pin' => $_POST['permanent_pin'],
+            'temporary_address' => $_POST['temporary_address'],
+            'temporary_city' => $_POST['temporary_city'],
+            'temporary_state' => $_POST['temporary_state'],
+            'temporary_pin' => $_POST['temporary_pin'],
+            'gender' => $_POST['gender'],
+            'mobile_number' => $_POST['mobile_number'],
+            'emergency_number' => $_POST['emergency_number'],
+            'marital_status' => $_POST['marital_status'],
+            'recent_qualification' => $_POST['recent_qualification'],
+            'salary' => $_POST['salary'],
+            'department_id' => $_POST['department_id'],
+            'hire_date' => $this->fncConvertDate($_POST['hire_date']),
+            'termination_date' => $this->fncConvertDate($_POST['termination_date']),
+            'account_number' => $_POST['account_number'],
+            'user_id' => $_POST['user_id'],
+            'designation' => $_POST['designation']
         );
 //echo '<pre>';
 //print_r($data);
@@ -246,44 +240,44 @@ class employeeController {
         loadView('showappliedleaves.php', $arrValue);
     }
 
-   /* public function acceptLeave() {
-        //echo "hello";
-        loadView('header.php');
-        $arrValue = loadModel('employee', 'acceptLeave');
-        // loadView('newtest.php',$arrValue);
-        loadView('showappliedleaves.php', $arrValue);
-    }*/
+    /* public function acceptLeave() {
+      //echo "hello";
+      loadView('header.php');
+      $arrValue = loadModel('employee', 'acceptLeave');
+      // loadView('newtest.php',$arrValue);
+      loadView('showappliedleaves.php', $arrValue);
+      } */
 
     public function acceptLeave1() {
 
         //loadView('header.php');
-       // $id = 1; //$id=$_REQUEST['employee_id']; 
-  	$id = ($_REQUEST["id"]);
-       // echo $id;
+        // $id = 1; //$id=$_REQUEST['employee_id']; 
+        $id = ($_REQUEST["id"]);
+        //echo $id;
 
         $arrArgument = array('id' => $id);
         $arrValue = loadModel('employee', 'acceptLeave1', $arrArgument);
         if ($arrValue) {
-        	echo "Accepted.";
+            echo "Accepted.";
         } else {
-        	echo "Nothing Done";
+            echo "Nothing Done";
         }
-        
+
         //loadView('showappliedleaves.php', $arrValue);
     }
 
     public function denyLeave() {
-      
-       // loadView('header.php');
-       // $id = 2; //$id=$_REQUEST['employee_id']; 
+
+        // loadView('header.php');
+        // $id = 2; //$id=$_REQUEST['employee_id']; 
         //echo $id;
         $id = ($_REQUEST["id"]);
         $arrArgument = array('id' => $id);
         $arrValue = loadModel('employee', 'denyLeave', $arrArgument);
         if ($arrValue) {
-        	echo ("Leave Denined");
+            echo ("Leave Denined");
         } else {
-        	echo ("Nothing Done");
+            echo ("Nothing Done");
         }
         //loadView('showappliedleaves.php', $arrValue);
     }
@@ -303,6 +297,7 @@ class employeeController {
         // loadView('newtest.php',$arrValue);
         loadView('showdeninedleaves.php', $arrValue);
     }
+
     public function viewLeavesDue() {
         //echo "hello";
         loadView('header.php');
@@ -344,39 +339,56 @@ class employeeController {
         $arrValue = loadModel('employee', 'fetchUsers', $arrValues);
         loadView('test1.php', $arrValue);
     }
-    
-   public function remainingleaves() {
+
+    public function remainingleaves() {
         //echo "hello";
         loadView('header.php');
         $arrValue = loadModel('employee', 'remainingleaves');
         // loadView('newtest.php',$arrValue);
         loadView('reminingleaves.php', $arrValue);
     }
-public function empapplyLeave(){
-		
-		loadView('leavesappliedform.php');
 
-	}
+    public function empapplyLeave() {
 
-public function submitLeave() {
-	
-	$data[] = array(
+        loadView('header.php');
+		/* $id = ($_REQUEST["id"]);
+        $arrArgument = array('id' => $id);
+        $arrValue = loadModel('employee', 'denyLeave', $arrArgument);
+        if ($arrValue) {
+            echo ("Leave Applied");
+        } else {
+            echo ("Nothing Done");
+        }
+       */
+        loadView('leavesappliedform.php');
+    }
+
+    public function submitLeave() {
+//echo '<pre>';
+//print_r($_SESSION);die;
+        $data[] = array(
             'leave_category' => $_POST['leave_category'],
             'reason' => $_POST['reason'],
             'date_from' => $this->fncConvertDate($_POST['date_from']),
             'till_date' => $this->fncConvertDate($_POST['till_date']),
             'total_hours' => $_POST['total_hours'],
-		'applied_date' => date('Y-m-d'),
-		
-            'employee_id' => $_SESSION['userInfo']['userId']
-            
+            'applied_date' => date('Y-m-d'),
+            'employee_id' => $_SESSION['userInfo']['employeeId']
         );
         //echo '<pre>';
-         //print_r($data);
-       // die;
+        //print_r($data);
+        // die;
         $arrValue1 = loadModel('employee', 'submitLeave', $data);
-		header("Location: ".SITE_PATH."index2.php?controller=employee&function=empProfile");
-}
+        header("Location: " . SITE_PATH . "index.php?controller=employee&function=empProfile");
+    }
+
+    
+     public function getleavestatus() {
+        $strDate = $_POST["stdate"];
+         
+        $arrValue = loadModel('employee', 'getleavestatus',$strDate);
+        loadView('leavestatustmp.php', $arrValue);
+    }
 }
 
 ?>

@@ -1,3 +1,12 @@
+<?php
+/**
+* Filename : add_emp.php
+* Authour : Megha Sahni
+* Description : Display the form to add new employee .
+* Date_of_creation : 10-March-2013
+*/
+?>
+	
 	<head>
 		
 	</head>
@@ -14,38 +23,30 @@
 
 <script language="javascript" type="text/javascript" >
         
-        function deleteUser()
-                        {
-				var x=prompt("Enter  Employee Id","");
-                     window.location.href="deleteemp.php?value="+x;
-                        }
-			
-        function updateUser()
-                        {
-                            var x=prompt("Enter  Employee Id","");
-                     window.location.href="updateemp.php?value="+x;
-                        }
-
+        
 </script>
 
 	<div id="templatemo_body_wrapper">
-		<div id="templatemo_wrapper">
-			<div id="tempaltemo_header">
-				<span id="header_icon"></span>
-				<div id="header_content">
-				<div id="site_title">
-					<a href="http://www.templatemo.com" target="_parent"><img src="../../../assets/images/title6.png" alt="LOGO" /></a>            
-				</div>
+            <div id="templatemo_wrapper">
+                <div id="tempaltemo_header">
+                    <span id="header_icon"></span>
+                    <div id="header_content">
+                        <div id="site_title">
+                            <a href="http://www.templatemo.com" target="_parent"><img src="images/title6.png" alt="LOGO" /></a>   
+							<a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
+							<a href="<?php echo SITE_PATH?>index.php?controller=employee&function=myProfile" class="detail float_r"><?php echo HOME; ?></a>
 				
-				
-			</div>
-		</div> <!-- end of header -->
-    
-		<div id="templatemo_main_top"></div>
-		<div id="templatemo_main"><!--<span id="main_top"></span><span id="main_bottom"></span>-->
-			<div id="templatemo_sidebar">
-               	<div id="templatemo_menu">
-					<ul><li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=myProfile"  ><?php echo"View Profile :" ?> </a></li>
+                        </div>
+
+
+                    </div>
+                </div> <!-- end of header -->
+
+                <div id="templatemo_main_top"></div>
+                <div id="templatemo_main"><!--<span id="main_top"></span><span id="main_bottom"></span>-->
+                    <div id="templatemo_sidebar">
+                        <div id="templatemo_menu">
+        				<ul><li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=myProfile"  ><?php echo"View Profile :" ?> </a></li>
 						<li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=searchAppiledLeaves"  > <?php echo"View Applied Leaves :" ?> </a></li>
 						<li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=searchAcceptedLeaves"  > <?php echo"View Accepted Leaves :" ?> </a></li>
 					        <li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=searchDeninedLeaves"  > <?php echo"View Denined Leaves :" ?> </a></li>
@@ -54,6 +55,8 @@
 						<li><a href="<?php echo SITE_PATH?>index.php?controller=employee&function=addEmployee"><?php echo "Add Employee" ?></a></li></a></li>
 <!--						<li><a href="<?php echo SITE_PATH?>index.php?controller=employee&function=deleteEmployee"><?php echo "Delete User :" ?></a></li>
                                                 <li><a href="<?php echo SITE_PATH?>index.php?controller=employee&function=updateEmployee"><?php echo "Update User :" ?></a></li>-->
+							<li><a href="<?php echo SITE_PATH; ?>index.php?controller=login&function=logout" target="_parent"><?php echo LOG_OUT; ?></a></li>			
+
 				       </ul>    	
 				</div> <!-- end of templatemo_menu -->
         
@@ -300,13 +303,13 @@ $("#hire_date").datepicker({
     changeYear: true,
     dateFormat: 'dd/mm/yy',
     minDate: new Date('1960/01/01'),
-    maxDate: '-1d'
+  //  maxDate: '-1d'
 });
 $("#termination_date").datepicker({
     changeYear: true,
     dateFormat: 'dd/mm/yy',
     minDate: new Date('1960/01/01'),
-    maxDate: '-1d'
+   // maxDate: '-1d'
 });
 
 </script>

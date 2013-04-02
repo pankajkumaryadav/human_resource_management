@@ -1,6 +1,14 @@
 <?php
+/**
+* Filename : employee.php
+* Authour : Megha Sahni
+* Description : Model for leave menagement,employee database management and employee leaves apply .
+* Date_of_creation : 15-March-2013
+*/
+
 
 ini_set("display_errors", "1");
+
 //include SITE_ROOT.'pdolib/cxpdo.php';
 // require_once(SITE_ROOT . 'pdolib/cxpdo.php');
 // require_once(SITE_ROOT . 'pdolib/mysql.php');
@@ -17,7 +25,7 @@ class employeeModel {
         // 	$this->dbconn = db::instance($config);
         $config = array();
         $config['user'] = 'root';
-        $config['pass'] = 'root'; 
+        $config['pass'] = 'root';
         $config['name'] = 'human_resource_management';
         $config['host'] = 'localhost';
         $config['type'] = 'mysql';
@@ -39,7 +47,7 @@ class employeeModel {
         $where = array('id' => $arrData["user_id"]);
         $result = $this->_db->update('users', $data, $where);
 
-		$data = array('status' => '1');
+        $data = array('status' => '1');
         $where = array('id' => $arrData["emp_id"]);
         $result = $this->_db->update('employees', $data, $where);
         if ($result) {
@@ -53,14 +61,14 @@ class employeeModel {
 
 
         $data = array('tables' => 'employees');
-        $data['columns']	= array('employees.user_id','employees.last_name','employees.first_name','departments.department_name');
-        $data['conditions']		= array('users.status' => '0');
+        $data['columns'] = array('employees.user_id', 'employees.last_name', 'employees.first_name', 'departments.department_name');
+        $data['conditions'] = array('users.status' => '0');
         $data['joins'][] = array(
             'table' => 'users',
             'type' => 'left',
             'conditions' => array('employees.user_id' => 'users.id')
         );
-   $data['joins'][] = array(
+        $data['joins'][] = array(
             'table' => 'departments',
             'type' => 'left',
             'conditions' => array('employees.department_id' => 'employees.department_id')
@@ -138,7 +146,7 @@ class employeeModel {
             "emp.designation",
             "emp.marital_status"
         );
-		//echo $id;die;
+        //echo $id;die;
         $data['conditions'] = array('emp.id' => $id);
         $data['joins'][] = array(
             'table' => 'users as usr',
@@ -165,12 +173,11 @@ class employeeModel {
             'type' => 'left',
             'conditions' => array('emp.department_id' => 'dept.id')
         );
-       
+
         $result = $this->_db->select($data);
 //        print_r($result);
         $row = $result->fetch(PDO::FETCH_ASSOC);
         return $row;
-       
     }
 
 //public  function employeeUpdate($arrArgument){
@@ -263,57 +270,57 @@ class employeeModel {
 //employee leave hr
     public function showMyProfile() {
 //$data = array('tables' => 'employees');
-       $data['tables']		= 'employees';
-       $data['columns']	= array('employees.id',
-'employees.first_name',
-'employees.middle_name',
-'employees.last_name',
-'employees.dob',
-'employees.permanent_address',
-'employees.permanent_city',
-'employees.permanent_state',
-'employees.permanent_pin',
-'employees.temporary_address',
-'employees.temporary_city',
-'employees.temporary_state',
-'employees.temporary_pin','employees.gender',
-'com .code_value as gname','employees.mobile_number','employees.emergency_number',
-'mari.code_value as marital','employees.recent_qualification','employees.salary','departments.department_name as dname',
-'employees.hire_date','employees.termination_date','employees.retire_date','employees.account_number','employees.user_id',
-'code_master.code_value as cname','users.status','users.user_type','cm.code_value as usrtype');
-   	$data['conditions']		= array('employees.id' => 2);
+        $data['tables'] = 'employees';
+        $data['columns'] = array('employees.id',
+            'employees.first_name',
+            'employees.middle_name',
+            'employees.last_name',
+            'employees.dob',
+            'employees.permanent_address',
+            'employees.permanent_city',
+            'employees.permanent_state',
+            'employees.permanent_pin',
+            'employees.temporary_address',
+            'employees.temporary_city',
+            'employees.temporary_state',
+            'employees.temporary_pin', 'employees.gender',
+            'com .code_value as gname', 'employees.mobile_number', 'employees.emergency_number',
+            'mari.code_value as marital', 'employees.recent_qualification', 'employees.salary', 'departments.department_name as dname',
+            'employees.hire_date', 'employees.termination_date', 'employees.retire_date', 'employees.account_number', 'employees.user_id',
+            'code_master.code_value as cname', 'users.status', 'users.user_type', 'cm.code_value as usrtype');
+        $data['conditions'] = array('employees.id' => 2);
         $data['joins'][] = array(
-    				'table' => 'users',
-    				'type'	=> 'left',
-    				'conditions' => array('employees.user_id' => 'users.id')
-    		);
-		$data['joins'][] = array(
-    				'table' => 'departments',
-    				'type'	=> 'left',
-    				'conditions' => array('employees.department_id' => 'departments.id')
-    		);
-  $data['joins'][] = array(
-    				'table' => 'code_master as cm',
-    				'type'	=> 'left',
-    				'conditions' => array('users.user_type' => 'cm.id')
-    		); 
-  $data['joins'][] = array(
-    				'table' => 'code_master',
-    				'type'	=> 'left',
-    				'conditions' => array('employees.designation' => 'code_master.id')
-    		);
-   $data['joins'][] = array(
-    				'table' => 'code_master as com',
-    				'type'	=> 'left',
-    				'conditions' => array('employees.gender' => 'com.id')
-    		); 
-$data['joins'][] = array(
-    				'table' => 'code_master as mari',
-    				'type'	=> 'left',
-    				'conditions' => array('employees.marital_status' => 'mari.id')
-    		); 
+            'table' => 'users',
+            'type' => 'left',
+            'conditions' => array('employees.user_id' => 'users.id')
+        );
+        $data['joins'][] = array(
+            'table' => 'departments',
+            'type' => 'left',
+            'conditions' => array('employees.department_id' => 'departments.id')
+        );
+        $data['joins'][] = array(
+            'table' => 'code_master as cm',
+            'type' => 'left',
+            'conditions' => array('users.user_type' => 'cm.id')
+        );
+        $data['joins'][] = array(
+            'table' => 'code_master',
+            'type' => 'left',
+            'conditions' => array('employees.designation' => 'code_master.id')
+        );
+        $data['joins'][] = array(
+            'table' => 'code_master as com',
+            'type' => 'left',
+            'conditions' => array('employees.gender' => 'com.id')
+        );
+        $data['joins'][] = array(
+            'table' => 'code_master as mari',
+            'type' => 'left',
+            'conditions' => array('employees.marital_status' => 'mari.id')
+        );
 
- 
+
         $result = $this->_db->select($data);
         //echo '<pre>';
         $arrFinal = array();
@@ -321,72 +328,113 @@ $data['joins'][] = array(
             $arrFinal[] = $row;
         }
         return $arrFinal;
-
-}
+    }
 
     public function showAppliedLeaves() {
 
- 	$data['tables']		= 'leave_applied';
-	$data['columns']	= array('leave_applied.id',
-		'leave_applied.employee_id',
-		'cm.code_value as leavecat',
-		'leave_applied.reason',
-		'leave_applied.applied_date',
-			'leave_applied.date_from',
-			'leave_applied.till_date',
-			'leave_applied.total_hours',
-			'leave_applied.status');
-	$data['conditions']		= array('leave_applied.status' => 0);
-	$data['joins'][] = array(
-			'table' => 'code_master as cm',
-			'type'	=> 'left',
-			'conditions' => array('leave_applied.leave_category' => 'cm.id')
-	);
-
- $result = $this->_db->select($data);
+        $data['tables'] = 'leave_applied';
+        $data['columns'] = array('leave_applied.id',
+            'em.first_name as fname',
+			'em.last_name as lname',
+            'cm.code_value as leavecat',
+            'leave_applied.reason',
+            'leave_applied.applied_date',
+            'leave_applied.date_from',
+            'leave_applied.till_date',
+            'leave_applied.total_hours',
+        );
+        $data['conditions'] = array('leave_applied.status' => 0);
+        $data['joins'][] = array(
+            'table' => 'code_master as cm',
+            'type' => 'left',
+            'conditions' => array('leave_applied.leave_category' => 'cm.id')
+        );
+        $data['joins'][] = array(
+            'table' => 'employees as em',
+            'type' => 'left',
+            'conditions' => array('leave_applied.employee_id' => 'em.id')
+       );
+        $result = $this->_db->select($data);
         //echo '<pre>';
         $arrFinal = array();
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $arrFinal[] = $row;
         }
         return $arrFinal;
-        
-
-}
-   public function acceptLeave1($arrValue='') {
-   		
- 		$data = array('status' => '1');
-        $where = array('id' => $arrValue);
-        $result = $this->_db->update('leave_applied', $data, $where);
-       	return $result;
-             
     }
-  
-    public function denyLeave($arrValue='') {
- $data = array('status' => '2');
+
+    public function acceptLeave1($arrValue='') {
+
+        $data = array('status' => '1');
         $where = array('id' => $arrValue);
         $result = $this->_db->update('leave_applied', $data, $where);
-      return $result;
+        return $result;
+    }
 
+    public function denyLeave($arrValue='') {
+        $data = array('status' => '2');
+        $where = array('id' => $arrValue);
+        $result = $this->_db->update('leave_applied', $data, $where);
+        return $result;
     }
 
     public function searchAcceptedLeaves() {
- $data = array('tables' => 'leave_applied');
-     $data['conditions']		= array('leave_applied.status' => 1);  
-           $result = $this->_db->select($data);
+        $data = array('tables' => 'leave_applied');
+		 $data['columns'] = array('leave_applied.id',
+            'em.first_name as fname',
+			'em.last_name as lname',
+            'cm.code_value as leavecat',
+            'leave_applied.reason',
+            'leave_applied.applied_date',
+            'leave_applied.date_from',
+            'leave_applied.till_date',
+            'leave_applied.total_hours',
+        );
+        $data['conditions'] = array('leave_applied.status' => 1);
+		 $data['joins'][] = array(
+            'table' => 'code_master as cm',
+            'type' => 'left',
+            'conditions' => array('leave_applied.leave_category' => 'cm.id')
+        );
+		 $data['joins'][] = array(
+            'table' => 'employees as em',
+            'type' => 'left',
+            'conditions' => array('leave_applied.employee_id' => 'em.id')
+       );
+
+        $result = $this->_db->select($data);
         //echo '<pre>';
         $arrFinal = array();
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $arrFinal[] = $row;
         }
         return $arrFinal;
-
-   }
+    }
 
     public function searchDeninedLeaves() {
-       $data = array('tables' => 'leave_applied');
-     $data['conditions'] = array('leave_applied.status' => 2);  
-           $result = $this->_db->select($data);
+        $data = array('tables' => 'leave_applied');
+		 $data['columns'] = array('leave_applied.id',
+            'em.first_name as fname',
+			'em.last_name as lname',
+            'cm.code_value as leavecat',
+            'leave_applied.reason',
+            'leave_applied.applied_date',
+            'leave_applied.date_from',
+            'leave_applied.till_date',
+            'leave_applied.total_hours',
+        );
+        $data['conditions'] = array('leave_applied.status' => 2);
+		 $data['joins'][] = array(
+            'table' => 'code_master as cm',
+            'type' => 'left',
+            'conditions' => array('leave_applied.leave_category' => 'cm.id')
+        );
+		 $data['joins'][] = array(
+            'table' => 'employees as em',
+            'type' => 'left',
+            'conditions' => array('leave_applied.employee_id' => 'em.id')
+       );
+        $result = $this->_db->select($data);
         //echo '<pre>';
         $arrFinal = array();
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -397,107 +445,121 @@ $data['joins'][] = array(
 
 // leaves emp
     public function status() {
+        
         $id = $_SESSION['userInfo']['userId'];
-        $data = array('tables' => 'leave_applied');
+        $data = array('tables' => 'leave_applied as la');
         //	$data['columns']	= array('employees.user_id','employees.last_name','employees.first_name','departments.department_name');
         //$data['conditions']		= array('leave_applied.status' => array('1'));
-        $data['conditions'] = array('leave_applied.id' => array($id));
+        $data['conditions'] = array('la.employee_id' => $id);
+        $data['conditionsbetween'] = "AND la.date_from BETWEEN '2013-03-26' AND la.till_date";
         $result = $this->_db->select($data);
         //print_r($result);die;
         //echo '<pre>';
         $arrFinal = array();
         $row = $result->fetch(PDO::FETCH_ASSOC);
         if (count($row) > 0) {
-            echo "your leave has been accepted";
+            //echo "your leave has been accepted";
         } else {
-            echo "leave denined";
+         //   echo "leave denined";
         }
     }
+
     public function remainingleaves() {
 //echo"hello in model";
-       // $id = $_SESSION['userInfo']['userId'];
+        // $id = $_SESSION['userInfo']['userId'];
         $arrFinal = array();
         $data = array('tables' => 'leave_applied');
-        $data['columns']	= array('sum(total_hours) as el');
+        $data['columns'] = array('sum(total_hours) as el');
         $data['conditions'] = array(
-                'status' => 1,
-                'leave_category' => 27,
-                'employee_id' => $_SESSION['userInfo']['userId']
-                
-            );
+            'status' => 1,
+            'leave_category' => 27,
+            'employee_id' => $_SESSION['userInfo']['userId']
+        );
         $result = $this->_db->select($data);
-        
+
         $row = $result->fetch(PDO::FETCH_ASSOC);
-        
+
         $data1 = array('tables' => 'leave_applied');
-        $data1['columns']	= array('sum(total_hours) as cl');
+        $data1['columns'] = array('sum(total_hours) as cl');
         $data1['conditions'] = array(
-                'status' => 1,
-                'leave_category' => 26,
-                'employee_id' => $_SESSION['userInfo']['userId']
-                
-            );
+            'status' => 1,
+            'leave_category' => 26,
+            'employee_id' => $_SESSION['userInfo']['userId']
+        );
         $result1 = $this->_db->select($data1);
         $row1 = $result1->fetch(PDO::FETCH_ASSOC);
-        
-        
+
+
         $data2 = array('tables' => 'leave_remaining');
-        $data2['columns']	= array('remaining_cl','remaining_el');
+        $data2['columns'] = array('remaining_cl', 'remaining_el');
         $data2['conditions'] = array(
-                'employee_id' => $_SESSION['userInfo']['userId']
-            );
+            'employee_id' => $_SESSION['userInfo']['userId']
+        );
         $result2 = $this->_db->select($data2);
         $row2 = $result2->fetch(PDO::FETCH_ASSOC);
-        
+
         //echo '<pre>';
         $arrFinal["el"] = $row2["remaining_el"] - $row["el"];
         $arrFinal["cl"] = $row2["remaining_cl"] - $row1["cl"];
         //print_r($arrFinal);die;
-        
+
         return $arrFinal;
     }
 
     public function empProfile() {
 
         $data = array('tables' => 'employees');
-         $data['columns']	= array('employees.id',
-'employees.first_name',
-'employees.middle_name',
-'employees.last_name',
-'employees.dob',
-'employees.permanent_address',
-'employees.permanent_city',
-'employees.permanent_state',
-'employees.permanent_pin',
-'employees.temporary_address',
-'employees.temporary_city',
-'employees.temporary_state',
-'employees.temporary_pin','employees.gender',
-'employees.gender','employees.mobile_number','employees.emergency_number',
-'employees.marital_status','employees.recent_qualification','employees.salary','employees.department_id',
-'employees.hire_date','employees.termination_date','employees.retire_date','employees.account_number','employees.user_id',
-'employees.designation','users.status','users.user_type','cm.code_value as usrtype');
-        $data['conditions'] = array('employees.id' => array($_SESSION['userInfo']['userId']));
+        $data['columns'] = array(
+            'employees.first_name',
+            'employees.middle_name',
+            'employees.last_name',
+            'employees.dob',
+            'employees.permanent_address',
+            'employees.permanent_city',
+            'employees.permanent_state',
+            'employees.permanent_pin',
+            'employees.temporary_address',
+            'employees.temporary_city',
+            'employees.temporary_state',
+            'employees.temporary_pin',
+            'gen.code_value as gen', 'employees.mobile_number', 'employees.emergency_number',
+            'employees.marital_status', 'employees.recent_qualification', 'employees.salary', 'departments.department_name',
+            'employees.hire_date', 'employees.termination_date', 'employees.retire_date', 'employees.account_number', 'employees.user_id',
+            'code_master.code_value', 'users.status', 'users.user_type', 'cm.code_value as usrtype');
+        $data['conditions'] = array('employees.user_id' => array($_SESSION['userInfo']['userId']));
         $data['joins'][] = array(
-    				'table' => 'users',
-    				'type'	=> 'left',
-    				'conditions' => array('employees.user_id' => 'users.id')
-    		);   
-  $data['joins'][] = array(
-    				'table' => 'code_master as cm',
-    				'type'	=> 'left',
-    				'conditions' => array('users.user_type' => 'cm.id')
-    		);       
+            'table' => 'users',
+            'type' => 'left',
+            'conditions' => array('employees.user_id' => 'users.id')
+        );
+		 $data['joins'][] = array(
+            'table' => 'departments',
+            'type' => 'left',
+            'conditions' => array('employees.department_id' => 'departments.id')
+        );
+       
+        $data['joins'][] = array(
+            'table' => 'code_master as cm',
+            'type' => 'left',
+            'conditions' => array('users.user_type' => 'cm.id')
+        );
+		$data['joins'][] = array(
+            'table' => 'code_master ',
+            'type' => 'left',
+            'conditions' => array('employees.designation' => 'code_master.id')
+        );
+        $data['joins'][] = array(
+            'table' => 'code_master as gen ',
+            'type' => 'left',
+            'conditions' => array('employees.gender' => 'gen.id')
+        );
         $result = $this->_db->select($data);
-        echo '<pre>';
-     $arrFinal = array();
+        //echo '<pre>';
+        $arrFinal = array();
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $arrFinal[] = $row;
         }
         return $arrFinal;
-      
-       
-  
     }
 
     public function fncSaveData($arrValue) {
@@ -505,23 +567,22 @@ $data['joins'][] = array(
 
         foreach ($arrValue as $row) {
 
-			$password = time() . rand(10*45, 100*98);
-			$rowUser = array();
-			$rowUser["email_id"] = $row["email_id"];
-			$rowUser["password"] = $password;
-			$rowUser["user_type"] = 2;
+            $password = time() . rand(10 * 45, 100 * 98);
+            $rowUser = array();
+            $rowUser["email_id"] = $row["email_id"];
+            $rowUser["password"] = $password;
+            $rowUser["user_type"] = 2;
 
-			$result = $this->_db->insert('users', $rowUser);
-			$nUserId	= $this->_db->lastInsertId();
+            $result = $this->_db->insert('users', $rowUser);
+            $nUserId = $this->_db->lastInsertId();
 
-			array_pop($row);
-			$row["user_id"] = $nUserId;
+            array_pop($row);
+            $row["user_id"] = $nUserId;
 
-			if($nUserId) {
-				$result = $this->_db->insert('employees', $row);
-			}
-
-		}	      
+            if ($nUserId) {
+                $result = $this->_db->insert('employees', $row);
+            }
+        }
     }
 
     public function fncUpdateEmployeeData($arrValue) {
@@ -547,15 +608,15 @@ $data['joins'][] = array(
 //		$data['conditions']		= array('employees.status' => '0');
         if (!empty($arrId)) {
             if ($arrValues["stype"] == "1") {
-                $data['conditions'] = array('employees.status' => '0','employees.id' => array($arrId));
+                $data['conditions'] = array('employees.status' => '0', 'employees.id' => array($arrId));
             } else if ($arrValues["stype"] == "2") {
                 $data['conditionslike'] = " employees.status= '0' and CONCAT(employees.first_name,' ', employees.last_name) like '%" . $arrId . "%'";
             } else {
-				$data['conditionslike'] = " employees.status= '0'";
-			}
+                $data['conditionslike'] = " employees.status= '0'";
+            }
         } else {
-			$data['conditionslike'] = " employees.status= '0'";
-		}
+            $data['conditionslike'] = " employees.status= '0'";
+        }
         $data['joins'][] = array(
             'table' => 'users',
             'type' => 'left',
@@ -571,14 +632,33 @@ $data['joins'][] = array(
         return $arrFinal;
     }
 
-	 public function submitLeave($arrValue) {
-
-
+    public function submitLeave($arrValue) {
         foreach ($arrValue as $row) {
-				$result = $this->_db->insert('leave_applied', $row);
-
-		}	      
+            //echo '<pre>';
+            //print_r($row);die;
+            $result = $this->_db->insert('leave_applied', $row);
+        }
     }
-
+    public function getleavestatus($arrValue) {
+        
+        $id = $_SESSION['userInfo']['employeeId'];
+        $data = array('tables' => 'leave_applied as la');
+        $data['columns']	= array('la.employee_id','la.reason',"date_format(la.date_from,'%d-%m-%Y') as stDate","date_format(la.till_date,'%d-%m-%Y') as stTillDate",'la.total_hours','la.status');
+        //$data['conditions']		= array('leave_applied.status' => array('1'));
+        $data['conditions'] = array('la.employee_id' => $id);
+        $data['conditionsbetween'] = "AND '$arrValue' BETWEEN DATE_FORMAT(la.date_from,'%d/%m/%Y') AND DATE_FORMAT(la.till_date,'%d/%m/%Y')";
+        $data['joins'][] = array(
+            'table' => 'code_master as cm',
+            'type' => 'left',
+            'conditions' => array('la.leave_category' => 'cm.id')
+        );
+        $result = $this->_db->select($data);
+        //print_r($result);die;
+        //echo '<pre>';
+        $arrFinal = array();
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $arrFinal[] = $row;
+        }
+        return $arrFinal;
+    }
 }
-

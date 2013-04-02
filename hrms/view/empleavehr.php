@@ -1,7 +1,12 @@
+<?php
+/**
+* Filename : deleteempid.php
+* Authour : Megha Sahni
+* Description : Delete employee from database.
+* Date_of_creation : 10-March-2013
+*/
 
-	<head>
-		
-	</head>
+?>
 	
 	<body>
         <script language="javascript" type="text/javascript" >
@@ -26,8 +31,10 @@
 				<div id="site_title">
 					<a href="http://www.templatemo.com" target="_parent"><img src="images/title6.png" alt="LOGO" /></a>            
 				</div>
-				
-				
+				<a href="<?php echo SITE_PATH?>index.php?controller=login&function=loginPage" class="detail float_l"><?php echo HOME; ?></a>
+
+			 <a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
+								
 			</div>
 		</div> <!-- end of header -->
     

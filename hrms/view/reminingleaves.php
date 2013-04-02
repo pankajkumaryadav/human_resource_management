@@ -38,12 +38,19 @@ ini_set("display_errors", "1");
                 <div id="templatemo_main"><!--<span id="main_top"></span><span id="main_bottom"></span>-->
                     <div id="templatemo_sidebar">
                         <div id="templatemo_menu">
-                            <ul><li> <a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=empProfile"  ><?php echo"View Profile :" ?> </a></li>
-                                <li> <a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=appiledLeaves"  > <?php echo"View Applied Leaves status :" ?> </a></li>
-                                <li>  <a href="#" target="_parent" onclick="applyLeave()"> <?php echo"Apply for leave :" ?> </a></li>
+                            <ul><li> <a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=empProfile"  ><?php echo"View Profile" ?> </a></li>
+                                <li> <a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=status"  > <?php echo"View Applied Leaves status" ?> </a></li>
+<!--                                <li>  <a href="#" target="_parent" onClick="applyLeave()"> <?php echo"Apply for leave" ?> </a></li>-->
+                                <li> <a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=empapplyLeave"  >  <?php echo"Apply for leave" ?>  </a></li>
                                 <li> <a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=remainingleaves"  > <?php echo"View Leaves Due" ?> </a></li>
-
-                            </ul>    		
+                                <?php 
+                                if($_SESSION['userInfo']['userType']=="1") { ?>
+                                    <li> <a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=listing"  ><?php echo"Show Database" ?> </a></li>
+                                    <li><a href="<?php echo SITE_PATH ?>index.php?controller=employee&function=addEmployee"><?php echo "Add Employee" ?></a></li>
+                                <?php }?>
+                                <li><a href="<?php echo SITE_PATH ?>index.php?controller=grievance&function=grievancePage"><?php echo GRIEVANCES; ?></a></li>	
+                                <li><a href="<?php echo SITE_PATH; ?>index.php?controller=login&function=logout" target="_parent"><?php echo LOG_OUT; ?></a></li>			
+                            </ul>    	
 
                         </div> <!-- end of templatemo_menu -->
 

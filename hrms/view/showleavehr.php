@@ -1,4 +1,12 @@
 <?php
+
+/**
+* Filename : showleavehr.php
+* Authour : Megha Sahni
+* Description : Display first page for admin for leave menagement .
+* Date_of_creation : 15-March-2013
+*/
+
 ini_set("display_errors","1"); 
 ?><html>
 	
@@ -30,7 +38,9 @@ ini_set("display_errors","1");
 				<div id="site_title">
 					<a href="http://www.templatemo.com" target="_parent"><img src="images/title6.png" alt="LOGO" /></a>            
 				</div>
-				
+			<a href="<?php echo SITE_PATH?>index.php?controller=login&function=loginPage" class="detail float_l"><?php echo HOME; ?></a>
+			<a href="#" class="detail float_r"><?php echo ABOUT_US; ?></a>
+	
 				
 			</div>
 		</div> <!-- end of header -->
@@ -45,6 +55,8 @@ ini_set("display_errors","1");
 					        <li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=searchDeninedLeaves"  > <?php echo"View Denined Leaves :" ?> </a></li>
                           <li> <a href="<?php echo SITE_PATH?>index.php?controller=employee&function=listing"  ><?php echo"Show Database :" ?> </a></li>
                     <li><a href="<?php echo SITE_PATH?>index.php?controller=employee&function=addEmployee"><?php echo "Add Employee" ?></a></li>
+			 <li><a href="<?php echo SITE_PATH; ?>index.php?controller=login&function=logout" target="_parent"><?php echo LOG_OUT; ?></a></li>			
+
 				       </ul>    	
 
 				</div> <!-- end of templatemo_menu -->
